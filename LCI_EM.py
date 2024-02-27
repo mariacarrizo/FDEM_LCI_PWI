@@ -5,10 +5,6 @@ import pygimli as pg
 import empymod as ep
 from scipy.constants import mu_0
 import matplotlib.pyplot as plt
-import sys
-sys.path.insert(1, 'src')
-
-from showStitched import showStitchedModels
 
 # Example for 3 layered model
 nLayers=3
