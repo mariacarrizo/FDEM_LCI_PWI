@@ -3,6 +3,9 @@ import numpy as np
 from scipy.constants import mu_0
 import pygimli as pg
 
+# IMPORTANT DEFINE nlay
+nlay = 3
+
 def FDEM1D(sgm, thk):
     """ 1D FDEM response 
         
@@ -81,85 +84,28 @@ def FDEM1D(sgm, thk):
         OUT.append([op, ip])
 
     return np.array(OUT).ravel()  
-
+     
 class FDEM1DModelling(pg.frameworks.Modelling):
     
-    def __init__(self, nlay=3):
+    def __init__(self, nlay=nlay):
         self.nlay = nlay
         mesh = pg.meshtools.createMesh1DBlock(nlay)
         super().__init__()
         self.setMesh(mesh)
+        #print('im using this one')
                 
-    def createStartModel(self, dataVals):
-        startThicks = 2
-        startSigma = 1/20
+#    def createStartModel(self, dataVals):
+#        print('IM HERE')
+#        startThicks = 2
+#        startSigma = 1/20
         
         # layer thickness properties
-        self.setRegionProperties(0, startModel =  startThicks, trans = 'log')
+#        self.setRegionProperties(0, startModel =  startThicks, trans = 'log')
         
         # electrical conductivity properties
-        self.setRegionProperties(1, startModel = startSigma, trans = 'log')
+#        self.setRegionProperties(1, startModel = startSigma, trans = 'log')
         
-        return super(FDEM1DModelling, self).createStartModel()
-    
-    def response(self, par):
-        """ Compute response vector for a certain model [mod] 
-        par = [thickness_1, thickness_2, ..., thickness_n, sigma_1, sigma_2, ..., sigma_n]
-        """
-        resp = FDEM1D(np.asarray(par)[self.nlay-1:self.nlay*2-1],   # sigma
-                      np.asarray(par)[:self.nlay-1]                  # thickness
-                      )
-        return resp
-    
-    def response_mt(self, par, i=0):
-        """Multi-threaded forward response."""
-        return self.response(par)
-    
-    def createJacobian(self, par, dx=1e-4):
-        """ compute Jacobian for a 1D model """
-        resp = self.response(par)
-        n_rows = len(resp) # number of data values in data vector
-        n_cols = len(par) # number of model parameters
-        J = self.jacobian() # we define first this as the jacobian
-        J.resize(n_rows, n_cols)
-        Jt = np.zeros((n_cols, n_rows))
-        for j in range(n_cols):
-            mod_plus_dx = par.copy()
-            mod_plus_dx[j] += dx
-            Jt[j,:] = (self.response(mod_plus_dx) - resp)/dx # J.T in col j
-        for i in range(n_rows):
-            J[i] = Jt[:,i]
-        #print(self.jacobian())
-        #print(J)
-        #print(Jt)
-        
-    def drawModel(self, ax, model):
-        pg.viewer.mpl.drawModel1D(ax = ax,
-                                  model = model,
-                                  plot = 'semilogx',
-                                  xlabel = 'Electrical conductivity (S/m)',
-                                  )
-        ax.set_ylabel('Depth in (m)')
-        
-class FDEM1DModelling(pg.frameworks.Modelling):
-    
-    def __init__(self, nlay=3):
-        self.nlay = nlay
-        mesh = pg.meshtools.createMesh1DBlock(nlay)
-        super().__init__()
-        self.setMesh(mesh)
-                
-    def createStartModel(self, dataVals):
-        startThicks = 2
-        startSigma = 1/20
-        
-        # layer thickness properties
-        self.setRegionProperties(0, startModel =  startThicks, trans = 'log')
-        
-        # electrical conductivity properties
-        self.setRegionProperties(1, startModel = startSigma, trans = 'log')
-        
-        return super(FDEM1DModelling, self).createStartModel()
+#        return super(FDEM1DModelling, self).createStartModel()
     
     def response(self, par):
         """ Compute response vector for a certain model [mod] 
@@ -346,7 +292,7 @@ class LCModelling(pg.frameworks.LCModelling):
             self.cWeight = pg.cat(cWeight_thk, cWeight_sig) / self.norm * (boundaries_thk + boundaries_sig)
         else:
             self.cWeight = pg.cat(cWeight_thk, cWeight_sig)
-        print('Constraint cWeight:', self.cWeight)
+        print('Constraint cWeight length:', len(self.cWeight))
         #return self.cWeight
 
     def createConstraints(self):
