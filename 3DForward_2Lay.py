@@ -182,4 +182,4 @@ for p in range(npos+5):
 endTime = time.time()
 print('Done in', (endTime - startTime)/2, 'minutes!')
 
-OUT.to_pickle('data_3D.pkl')
+OUT.to_pickle('data3D_slope0.pkl')
