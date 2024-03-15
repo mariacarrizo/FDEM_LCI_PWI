@@ -15,6 +15,8 @@ thk = np.array([])
 sig_3d = np.hstack(([1/1e6], sig))
 depth_3d = np.hstack(([0], -np.cumsum(thk)))
 
+# Instrument settings
+height = 0.1
 frequency = 9000
 
 # Define mesh
