@@ -57,29 +57,44 @@ def Plot_Datas(data_true, data_est, ax=None):
 
     plt.tight_layout()
 
-def grid(model, depthmax=10, ny=101):
-    """ Generates a grid from the model to plot a 2D section"""
+def grid(model, depthmax=10, ny=101, nlay=2):
+    """ Generates a grid from the model to plot a 2D section
+    
+    I CAN IMPROVE THIS  """
     # Arrays for plotting
     npos = np.shape(model)[0] # number of 1D models
    # ny = 101 # size of the grid in y direction
     y = np.linspace(0, depthmax, ny) # y axis [m]
     grid = np.zeros((npos, ny)) # empty grid
-    thk = model[:,:2].copy() # define electrical conductivities
-    sig = model[:,2:].copy()  # define thicknesses
+    thk = model[:,:nlay-1].copy() # define electrical conductivities
+    sig = model[:,nlay-1:].copy()  # define thicknesses
     
     # Fill the grid with the conductivity values
-    for i in range(npos):
-        y1 = 0
-        # First layer
-        while y[y1] < thk[i,0]:
-            grid[i, y1] = sig[i, 0]
-            y1 += 1
-            #y2 = y1
-        # Second layer
-        while y[y1] < (thk[i,0] + thk[i,1]):
-            grid[i, y1] = sig[i, 1]
-            y1 += 1
-        # Third layer
-        grid[i, y1:] = sig[i, 2]
+    
+    if nlay == 3:
+        for i in range(npos):
+            y1 = 0
+            # First layer
+            while y[y1] < thk[i,0]:
+                grid[i, y1] = sig[i, 0]
+                y1 += 1
+                #y2 = y1
+            # Second layer
+            while y[y1] < (thk[i,0] + thk[i,1]):
+                grid[i, y1] = sig[i, 1]
+                y1 += 1
+            # Third layer
+            grid[i, y1:] = sig[i, 2]
+    
+    if nlay == 2:   
+        for i in range(npos):
+            y1 = 0
+            # First layer
+            while y[y1] < thk[i,0]:
+                grid[i, y1] = sig[i, 0]
+                y1 += 1
+            while y[y1] > thk[i,0]:
+                grid[i, y1] = sig[i, 1]
+                y1 += 1
         
     return grid
