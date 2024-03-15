@@ -73,6 +73,7 @@ sig_x[x*y*z_lay2] = models_LCI[-1,2]
 
 # Create 3D model
 Model_LCI = emg3d.Model(mesh, property_x = sig_x, mapping = 'Conductivity')
+Model_air = emg3d.Model(mesh, property_x = sig_air, mapping = 'Conductivity')
 
 # Start computing data
 
