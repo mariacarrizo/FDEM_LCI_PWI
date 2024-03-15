@@ -4,7 +4,7 @@ from scipy.constants import mu_0
 import pygimli as pg
 
 # IMPORTANT DEFINE nlay
-nlay = 3
+nlay = 2
 
 def FDEM1D(sgm, thk):
     """ 1D FDEM response 
@@ -52,7 +52,7 @@ def FDEM1D(sgm, thk):
     depth = np.hstack((0, np.cumsum(thk)))
     # Empty array to store responses
     OUT = []
-
+    
     if any(coilOrient == 'H'):
 
         H_Hs = ep.dipole(source, receivers, depth, res, Freq, ab = 66, xdirect=None, 
