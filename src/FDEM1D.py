@@ -6,7 +6,7 @@ import pygimli as pg
 # IMPORTANT DEFINE nlay
 nlay = 2
 
-def FDEM1D(sgm, thk):
+def FDEM1D(sgm, thk, height=0.1):
     """ 1D FDEM response 
         
     Parameters
@@ -39,7 +39,7 @@ def FDEM1D(sgm, thk):
     coilSpacing = [2, 4, 8]
     pcoilSpacing = [2.1, 4.1, 8.1]
     coilOrient = np.array(['H', 'V', 'P'])
-    height = 0
+    #height = 0
 
     # Source and receivers geometry [x, y, z]
     source    = [0, 0, -height]
