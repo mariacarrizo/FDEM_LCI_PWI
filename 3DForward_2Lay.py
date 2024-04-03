@@ -22,22 +22,22 @@ frequency = 9000
 # Define mesh
 mesh = emg3d.construct_mesh(frequency = frequency,
                          properties = sig_3d,
-                         center = [0.2,0.2,0],
+                         center = [0.1,0.2,0],
                          mapping='Conductivity',
                          domain = ([-10, 40],[-6, 6],[-13,1]),
-                         min_width_limits = [0.5, 0.4, 0.2],
+                         min_width_limits = [0.2, 0.4, 0.2],
                          center_on_edge=True)
 
 # Load LCI model
-models_LCI = np.load('modelLCI.npy')
+models_LCI = np.load('modelLCI_slope0.npy')
 
 npos = np.shape(models_LCI)[0]
-nlay = 2
+nlay = int((np.shape(models_LCI)[1]+1)/2)
 
 depths = np.zeros((npos, nlay))
 depths[:,1] = - models_LCI[:,0]
 
-models_LCI_grid = grid(models_LCI, depthmax = 10)
+#models_LCI_grid = grid(models_LCI, depthmax = 10)
 
 # Populate a mesh
 # Define air layer
@@ -79,7 +79,9 @@ Model_air = emg3d.Model(mesh, property_x = sig_air, mapping = 'Conductivity')
 
 # Set the source positions to obtain full coverage midpoints in each 1D model
 # 4 positions before and 3 positions after have no coverage
-xsrc = np.linspace(-4, npos+3, npos+5, endpoint=True)
+xsrc = np.linspace(-4, npos+3, npos+8, endpoint=True)
+print('xsrc:', xsrc)
+print()
 
 # Empty data array
 OUT = pd.DataFrame({})
@@ -176,6 +178,7 @@ for p in range(npos+5):
                           'midpx' : np.hstack((Hsrc_coords[0] + (offsets_HV - Hsrc_coords[0])/2,
                                                Vsrc_coords[0] + (offsets_HV - Vsrc_coords[0])/2,
                                                Hsrc_coords[0] + (offsets_P - Hsrc_coords[0])/2)),
+                          'offset': [2, 4, 8, 2, 4, 8, 2.1, 4.1, 8.1],
                           'op'    : np.hstack((op_h, op_v, op_p)),
                           'ip'    : np.hstack((ip_h, ip_v, ip_p)) 
                           })
