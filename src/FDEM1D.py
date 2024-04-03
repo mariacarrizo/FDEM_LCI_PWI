@@ -51,7 +51,8 @@ def FDEM1D(sgm, thk, height=0.1):
     res = np.hstack((res_air, 1/sgm))
     depth = np.hstack((0, np.cumsum(thk)))
     # Empty array to store responses
-    OUT = []
+    OP = []
+    IP = []
     
     if any(coilOrient == 'H'):
 
@@ -61,16 +62,8 @@ def FDEM1D(sgm, thk, height=0.1):
                          ab = 66, verb=0)*(2j * np.pi * Freq * mu_0)   
         op = (H_Hs/H_Hp).imag.amp() 
         ip = (H_Hs/H_Hp).real.amp() 
-        OUT.append([op, ip])
-
-    if any(coilOrient == 'V'):
-        V_Hs = ep.dipole(source, receivers, depth, res, Freq, ab =55, xdirect=None, 
-                         verb=0)*(2j * np.pi * Freq * mu_0) 
-        V_Hp = ep.dipole(source, receivers, depth=[], res=[res_air], freqtime=Freq, 
-                         ab=55, verb=0)*(2j * np.pi * Freq * mu_0)
-        op = (V_Hs/V_Hp).imag.amp() 
-        ip = (V_Hs/V_Hp).real.amp() 
-        OUT.append([op, ip])
+        OP.append(op)
+        IP.append(ip)
 
     if any(coilOrient == 'P'):
         # Maybe put 0.1m in receiver offset
@@ -80,10 +73,20 @@ def FDEM1D(sgm, thk, height=0.1):
                          ab=66, verb=0)*(2j * np.pi * Freq * mu_0) 
         op = (P_Hs/P_Hp).imag.amp() 
         ip = (P_Hs/P_Hp).real.amp() 
+        OP.append(op)
+        IP.append(ip)
+        
+    if any(coilOrient == 'V'):
+        V_Hs = ep.dipole(source, receivers, depth, res, Freq, ab =55, xdirect=None, 
+                         verb=0)*(2j * np.pi * Freq * mu_0) 
+        V_Hp = ep.dipole(source, receivers, depth=[], res=[res_air], freqtime=Freq, 
+                         ab=55, verb=0)*(2j * np.pi * Freq * mu_0)
+        op = (V_Hs/V_Hp).imag.amp() 
+        ip = (V_Hs/V_Hp).real.amp() 
+        OP.append(op)
+        IP.append(ip)
 
-        OUT.append([op, ip])
-
-    return np.array(OUT).ravel()  
+    return np.array([OP, IP]).ravel() 
      
 class FDEM1DModelling(pg.frameworks.Modelling):
     
