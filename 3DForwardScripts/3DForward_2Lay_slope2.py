@@ -22,14 +22,14 @@ frequency = 9000
 # Define mesh
 mesh = emg3d.construct_mesh(frequency = frequency,
                          properties = sig_3d,
-                         center = [0.1,0.2,0],
+                         center = [0.25,0.25,0],
                          mapping='Conductivity',
-                         domain = ([-10, 40],[-6, 6],[-13,1]),
-                         min_width_limits = [0.2, 0.4, 0.2],
+                         domain = ([-10, 48],[-6, 6],[-13,1]),
+                         min_width_limits = [0.5, 0.5, 0.1],
                          center_on_edge=True)
 
 # Load LCI model
-models_LCI = np.load('modelLCI_slope0.npy')
+models_LCI = np.load('../models/model1D_slope2_40pos.npy')
 
 npos = np.shape(models_LCI)[0]
 nlay = int((np.shape(models_LCI)[1]+1)/2)
@@ -54,7 +54,7 @@ sig_x[x*y*z_lay1] = models_LCI[0,1]
 sig_x[x*y*z_lay2] = models_LCI[0,2]
 
 for p in range(npos):
-    x = (mesh.cell_centers[:,0] > p) & (mesh.cell_centers[:,0] < p+1)
+    x = (mesh.cell_centers[:,0] >= p) & (mesh.cell_centers[:,0] < p+1)
     y = np.ones_like(mesh.cell_centers[:,1], dtype=bool)
     z_lay1 = (mesh.cell_centers[:,2] < depths[p,0]) & (mesh.cell_centers[:,2] > depths[p,1])
     z_lay2 = (mesh.cell_centers[:,2] < depths[p,1]) 
@@ -188,4 +188,4 @@ for p in range(npos+5):
 endTime = time.time()
 print('Done in', (endTime - startTime)/2, 'minutes!')
 
-OUT.to_pickle('data3D_slope0.pkl')
+OUT.to_pickle('../data/data3D_slope2_40pos.pkl')
