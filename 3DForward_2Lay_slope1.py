@@ -29,7 +29,7 @@ mesh = emg3d.construct_mesh(frequency = frequency,
                          center_on_edge=True)
 
 # Load LCI model
-models_LCI = np.load('modelLCI_slope0.npy')
+models_LCI = np.load('modelLCI_slope1.npy')
 
 npos = np.shape(models_LCI)[0]
 nlay = int((np.shape(models_LCI)[1]+1)/2)
@@ -188,4 +188,4 @@ for p in range(npos+5):
 endTime = time.time()
 print('Done in', (endTime - startTime)/2, 'minutes!')
 
-OUT.to_pickle('data3D_slope0.pkl')
+OUT.to_pickle('data3D_slope1.pkl')
