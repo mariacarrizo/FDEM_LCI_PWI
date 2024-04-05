@@ -4,9 +4,9 @@ import emg3d
 import pandas as pd
 from scipy.constants import mu_0
 import time
-import sys
-sys.path.insert(1, 'src')
-from Plot import grid
+#import sys
+#sys.path.insert(1, 'src')
+#from Plot import grid
 
 # Define a homogoneous model
 sig = np.array([100/1000])
