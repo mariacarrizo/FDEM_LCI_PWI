@@ -91,7 +91,7 @@ def FDEM_3D(p):
     Input:
     p -> position in meters 
     """
-    #print('Position:', p)
+    print('Position:', p)
     #print('Defining geometry')
     # Define source coordinates
     src_x = xsrc[p]
@@ -123,7 +123,7 @@ def FDEM_3D(p):
     Efield_V_p = emg3d.solve_source(model = Model_air, source = Vsource, frequency = frequency)
 
     # Get magnetic fields
-    print('getting magnetic fields...')
+    #print('getting magnetic fields...')
     # Total magnetic field Hsource
     Hfield_H = emg3d.get_magnetic_field(model = Model_LCI, efield = Efield_H)
     # Primary magnetic field Hsource
@@ -135,7 +135,7 @@ def FDEM_3D(p):
     Hfield_V_p = emg3d.get_magnetic_field(model = Model_air, efield = Efield_V_p)
     
     # Get fields at receivers
-    print('magnetic field at receivers...')
+    #print('magnetic field at receivers...')
     # For total field Hsource
     H_Hrec = Hfield_H.get_receiver((offsets_HV, offsets_HV*0, height, 0, 90))*(2j * np.pi * frequency * mu_0) 
     # For primary field Hsource
@@ -159,8 +159,8 @@ def FDEM_3D(p):
     # Primary field Psource in zz direction
     H_Prec_p = Hfield_H_p.get_receiver((offsets_P, offsets_P*0, height, 0, 90))*(2j * np.pi * frequency * mu_0)
     
-     # Calculate output components OP and IP
-    print('getting output components')
+    # Calculate output components OP and IP
+    #print('getting output components')
     # Horizontal coplanar
     op_h = (H_Hrec_s/H_Hrec_p).imag.amp()
     ip_h = (H_Hrec_s/H_Hrec_p).real.amp()
@@ -190,9 +190,11 @@ def FDEM_3D(p):
 
 startTime = time.time()
 
-OUT = Parallel(n_jobs=-1,verbose=1)(delayed(FDEM_3D)(p) for p in (npos+5))
+OUT = Parallel(n_jobs=48,verbose=1)(delayed(FDEM_3D)(p) for p in range(npos+5))
 
 endTime = time.time()
-print('Done in', (endTime - startTime)/2, 'minutes!')
+print('Done in', (endTime - startTime)/60, 'minutes!')
 
-OUT.to_pickle('../data/data3D_slope1_40pos.pkl')
+OUT_all = pd.concat(OUT, ignore_index=True)
+
+OUT_all.to_pickle('../data/data3D_slope1_40pos.pkl')
