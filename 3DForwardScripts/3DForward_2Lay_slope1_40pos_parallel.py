@@ -26,7 +26,7 @@ mesh = emg3d.construct_mesh(frequency = frequency,
                          center = [0.1,0.1,0],
                          mapping='Conductivity',
                          domain = ([-10, 48],[-6, 6],[-13,1]),
-                         min_width_limits = [0.2, 0.2, 0.1],
+                         min_width_limits = [0.2, 0.2, 0.2],
                          center_on_edge=True)
 
 # Load LCI model
