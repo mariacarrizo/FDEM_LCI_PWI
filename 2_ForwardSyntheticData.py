@@ -99,7 +99,7 @@ xsrc = np.linspace(-4, 39, 39+5, endpoint=True)
 OUT = pd.DataFrame({})
 
 startTime = time.time()
-for p in range(len(xsrc)+7):
+for p in range(len(xsrc)):
     print('Position:', p)
     print('Defining geometry')
     # Define source coordinates
@@ -202,4 +202,4 @@ for p in range(len(xsrc)+7):
 endTime = time.time()
 print('Done in', (endTime - startTime), 'seconds!')
 
-OUT.to_pickle('data/data_s1_c1_uc.pkl')
+#OUT.to_pickle('data/data_s1_c1_uc.pkl')
