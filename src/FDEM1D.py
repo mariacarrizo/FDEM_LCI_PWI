@@ -6,7 +6,7 @@ import pygimli as pg
 # IMPORTANT DEFINE nlay
 nlay = 2
 
-def FDEM1D(sgm, thk, height=0.1):
+def FDEM1D(sgm, thk, height=0.1, norm=np.array([8,4,1])):
     """ 1D FDEM response 
         
     Parameters
@@ -28,6 +28,8 @@ def FDEM1D(sgm, thk, height=0.1):
 
     height : float
                 height of the device with respect to ground [m]
+                
+    norm : normalize values with respect to offset
 
     Returns
     -------
@@ -60,9 +62,9 @@ def FDEM1D(sgm, thk, height=0.1):
                           verb=0)*(2j * np.pi * Freq * mu_0) 
         H_Hp = ep.dipole(source, receivers, depth=[], res=[res_air], freqtime = Freq,
                          ab = 66, verb=0)*(2j * np.pi * Freq * mu_0)   
-        op = (H_Hs/H_Hp).imag.amp() 
-        ip = (H_Hs/H_Hp).real.amp() 
-        OP.append(op)
+        op = (H_Hs/H_Hp).imag.amp() * norm
+        ip = (H_Hs/H_Hp).real.amp() * norm
+        OP.append(op) 
         IP.append(ip)
 
     if any(coilOrient == 'P'):
@@ -71,8 +73,8 @@ def FDEM1D(sgm, thk, height=0.1):
                          verb=0)*(2j * np.pi * Freq * mu_0) 
         P_Hp = ep.dipole(source, preceivers, depth=[], res=[res_air], freqtime= Freq,
                          ab=66, verb=0)*(2j * np.pi * Freq * mu_0) 
-        op = (P_Hs/P_Hp).imag.amp() 
-        ip = (P_Hs/P_Hp).real.amp() 
+        op = (P_Hs/P_Hp).imag.amp() * norm
+        ip = (P_Hs/P_Hp).real.amp() * norm
         OP.append(op)
         IP.append(ip)
         
@@ -81,8 +83,8 @@ def FDEM1D(sgm, thk, height=0.1):
                          verb=0)*(2j * np.pi * Freq * mu_0) 
         V_Hp = ep.dipole(source, receivers, depth=[], res=[res_air], freqtime=Freq, 
                          ab=55, verb=0)*(2j * np.pi * Freq * mu_0)
-        op = (V_Hs/V_Hp).imag.amp() 
-        ip = (V_Hs/V_Hp).real.amp() 
+        op = (V_Hs/V_Hp).imag.amp() * norm
+        ip = (V_Hs/V_Hp).real.amp() * norm
         OP.append(op)
         IP.append(ip)
 
