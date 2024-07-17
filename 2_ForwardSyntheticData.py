@@ -17,7 +17,7 @@ frequency = 9000
 
 # 1. Load model
 
-model = np.load('models/model_s1_c3_ur.npy')
+model = np.load('models/model_s2_c1_ur.npy')
 npos = np.shape(model)[0]      # number of positions
 nlay = np.shape(model)[1] - 1  # number of layers
 
@@ -202,4 +202,4 @@ for p in range(len(xsrc)):
 endTime = time.time()
 print('Done in', (endTime - startTime), 'seconds!')
 
-OUT.to_pickle('data/data_s1_c3_ur.pkl')
+OUT.to_pickle('data/data_s2_c1_ur.pkl')
