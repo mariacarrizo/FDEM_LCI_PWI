@@ -126,25 +126,29 @@ model_s10_c4_uc[:,1] = 1600/1000
 model_s10_c4_uc[:,2] = 20/1000
 
 # Thickness of the first layer
+y1 = 2.5 # thickness of middle point
+x1 = 20  # x position of middle point
+x0 = 0   # intercept x position
+
 # Slope 1 %
-thk_s1 = 4* np.ones(pos) 
-thk_s1[9:] = 4* np.ones(pos-9) - (x[:31]/100) 
-thk_s1[30:] = thk_s1[30]
+slope = 1/100
+intercept = y1 - slope*(x1 - x0)
+thk_s1 = intercept + slope * x
 
 # Slope 2 %
-thk_s2 = 4* np.ones(pos) 
-thk_s2[9:] = 4* np.ones(pos-9) - (x[:31]/50) 
-thk_s2[30:] = thk_s2[30]
+slope = 2/100
+intercept = y1 - slope*(x1 - x0)
+thk_s2 = intercept + slope * x
 
 # Slope 5 %
-thk_s5 = 4* np.ones(pos) 
-thk_s5[9:] = 4* np.ones(pos-9) - (x[:31]/20) 
-thk_s5[30:] = thk_s5[30]
+slope = 5/100
+intercept = y1 - slope*(x1 - x0)
+thk_s5 = intercept + slope * x
 
 # Slope 10 %
-thk_s10 = 4* np.ones(pos) 
-thk_s10[9:] = 4* np.ones(pos-9) - (x[:31]/10) 
-thk_s10[30:] = thk_s10[30]
+slope = 10/100
+intercept = y1 - slope*(x1 - x0)
+thk_s10 = intercept + slope * x
 
 # Include thickness in the model array
 model_s1_c1_uc[:,0] = thk_s1
