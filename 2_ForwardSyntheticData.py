@@ -19,7 +19,7 @@ n_workers = 10
 
 # 1. Load model
 
-model = np.load('models/model_s2_c1_ur.npy')
+model = np.load('models/model_s1_c1_uc.npy')
 npos = np.shape(model)[0]      # number of positions
 nlay = np.shape(model)[1] - 1  # number of layers
 
@@ -114,7 +114,7 @@ def Dualem842_3D(xsrc, Model, Model_air, frequency=frequency, height=height):
     
     # Define H and V receivers coordinates
     offsets_HV = np.array([src_x+2, src_x+4, src_x+8])
-    print('offsets:',offsets_HV)
+    #print('offsets:',offsets_HV)
     #rec_coords = [offsets_HV, offsets_HV*0, np.ones_like(offsets_HV)*height, azi, dip]
     
     # Define P receivers coordinates
@@ -126,7 +126,7 @@ def Dualem842_3D(xsrc, Model, Model_air, frequency=frequency, height=height):
     Vsource = emg3d.TxMagneticPoint(Vsrc_coords)
     
     # Solve Electrical fields
-    print('Solving sources...')
+    #print('Solving sources...')
     # Total field Hsource
     Efield_H = emg3d.solve_source(model = Model, source = Hsource, frequency = frequency)
     # Primary field Hsource
@@ -138,7 +138,7 @@ def Dualem842_3D(xsrc, Model, Model_air, frequency=frequency, height=height):
     Efield_V_p = emg3d.solve_source(model = Model_air, source = Vsource, frequency = frequency)
 
     # Get magnetic fields
-    print('getting magnetic fields...')
+   # print('getting magnetic fields...')
     # Total magnetic field Hsource
     Hfield_H = emg3d.get_magnetic_field(model = Model, efield = Efield_H)
     # Primary magnetic field Hsource
@@ -150,7 +150,7 @@ def Dualem842_3D(xsrc, Model, Model_air, frequency=frequency, height=height):
     Hfield_V_p = emg3d.get_magnetic_field(model = Model_air, efield = Efield_V_p)
     
     # Get fields at receivers
-    print('magnetic field at receivers...')
+  #  print('magnetic field at receivers...')
     # For total field Hsource
     H_Hrec = Hfield_H.get_receiver((offsets_HV, offsets_HV*0, height, 0, 90))*(2j * np.pi * frequency * mu_0) 
     # For primary field Hsource
@@ -175,7 +175,7 @@ def Dualem842_3D(xsrc, Model, Model_air, frequency=frequency, height=height):
     H_Prec_p = Hfield_H_p.get_receiver((offsets_P, offsets_P*0, height, 0, 90))*(2j * np.pi * frequency * mu_0)
     
      # Calculate output components OP and IP
-    print('getting output components')
+ #   print('getting output components')
     # Horizontal coplanar
     op_h = (H_Hrec_s/H_Hrec_p).imag.amp()
     ip_h = (H_Hrec_s/H_Hrec_p).real.amp()
@@ -208,10 +208,11 @@ def Dualem842_3D(xsrc, Model, Model_air, frequency=frequency, height=height):
 OUT = Parallel(n_jobs=n_workers,verbose=0)(delayed(Dualem842_3D)(xsrc[p], 
                          Model, Model_air) for p in range(len(xsrc)))
 
-print(OUT)
+#print(OUT)
                  
 print()
 endTime = time.time()
 print('Done in', (endTime - startTime), 'seconds!')
 
+np.save('data/data_s1_c1_uc', OUT)
 #OUT.to_pickle('data/data_s2_c1_ur.pkl')
