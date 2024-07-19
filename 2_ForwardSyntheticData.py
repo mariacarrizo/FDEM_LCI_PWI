@@ -7,6 +7,7 @@ import pandas as pd
 from scipy.constants import mu_0
 #import matplotlib.pyplot as plt
 import time
+from joblib import Parallel, delayed
 import sys
 sys.path.insert(1, 'src')
 
@@ -14,6 +15,7 @@ sys.path.insert(1, 'src')
 
 height = 0.1
 frequency = 9000
+n_workers = 10
 
 # 1. Load model
 
@@ -96,25 +98,27 @@ Model_air = emg3d.Model(mesh,
 # 4 positions before and 3 positions after have no coverage
 xsrc = np.linspace(-4, 39, 39+5, endpoint=True) 
 
-OUT = pd.DataFrame({})
+#OUT = pd.DataFrame({})
 
 startTime = time.time()
-for p in range(len(xsrc)):
-    print('Position:', p)
+#for p in range(len(xsrc)):
+
+def Dualem842_3D(xsrc, Model, Model_air, frequency=frequency, height=height):
+   # print('Position:', p)
     print('Defining geometry')
     # Define source coordinates
-    src_x = xsrc[p]
+    src_x = xsrc
     Hsrc_coords = [src_x, 0, height, 0, 90]
     Vsrc_coords = [src_x, 0, height, 90, 0]
     print('source:', Hsrc_coords)
     
     # Define H and V receivers coordinates
-    offsets_HV = np.array([xsrc[p]+2, xsrc[p]+4, xsrc[p]+8])
+    offsets_HV = np.array([src_x+2, src_x+4, src_x+8])
     print('offsets:',offsets_HV)
     #rec_coords = [offsets_HV, offsets_HV*0, np.ones_like(offsets_HV)*height, azi, dip]
     
     # Define P receivers coordinates
-    offsets_P = np.array([xsrc[p]+2.1, xsrc[p]+4.1, xsrc[p]+8.1])
+    offsets_P = np.array([src_x+2.1, src_x+4.1, src_x+8.1])
     #rec_coords_p = [offsets_P, offsets_P*0, np.ones_like(offsets_P)*height, azi, dip]
     
     # Define sources
@@ -197,9 +201,17 @@ for p in range(len(xsrc)):
                           'ip'    : np.hstack((ip_h, ip_v, ip_p)) 
                           })
     
-    OUT = pd.concat([OUT, OUT_i], ignore_index=True)
+    #OUT = pd.concat([OUT, OUT_i], ignore_index=True)
     print()
+    return OUT_i
+                 
+OUT = Parallel(n_jobs=n_workers,verbose=0)(delayed(Dualem842_3D)(xsrc[p], 
+                         Model, Model_air) for p in range(len(xsrc)))
+
+print(OUT)
+                 
+print()
 endTime = time.time()
 print('Done in', (endTime - startTime), 'seconds!')
 
-OUT.to_pickle('data/data_s2_c1_ur.pkl')
+#OUT.to_pickle('data/data_s2_c1_ur.pkl')
