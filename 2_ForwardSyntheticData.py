@@ -214,5 +214,7 @@ print()
 endTime = time.time()
 print('Done in', (endTime - startTime), 'seconds!')
 
-np.save('data/data_s1_c1_uc', OUT)
-#OUT.to_pickle('data/data_s2_c1_ur.pkl')
+OUT_dataframe = pd.concat(OUT)
+
+#np.save('data/data_s1_c1_uc', OUT)
+OUT_dataframe.to_pickle('data/data_s1_c1_uc.pkl')
