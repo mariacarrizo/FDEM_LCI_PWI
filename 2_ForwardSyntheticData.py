@@ -19,7 +19,7 @@ n_workers = 10
 
 # 1. Load model
 
-model = np.load('models/model_s2_c2_ur.npy')
+model = np.load('models/model_s4_c4_ur.npy')
 npos = np.shape(model)[0]      # number of positions
 nlay = np.shape(model)[1] - 1  # number of layers
 
@@ -217,4 +217,4 @@ print('Done in', (endTime - startTime), 'seconds!')
 OUT_dataframe = pd.concat(OUT)
 
 #np.save('data/data_s1_c1_uc', OUT)
-OUT_dataframe.to_pickle('data/data_s2_c2_ur.pkl')
+OUT_dataframe.to_pickle('data/data_s4_c4_ur.pkl')
