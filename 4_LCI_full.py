@@ -58,7 +58,7 @@ LCI.createConstraints()
 
 # Set transforms
 #transData = pg.trans.TransLog()
-transThk = pg.trans.TransLogLU(1,5)
+transThk = pg.trans.TransLogLU(0.1,5)
 transSig = pg.trans.TransLogLU(10/1000,2000/1000)
 
 LCI.region(1).setTransModel(transThk)
