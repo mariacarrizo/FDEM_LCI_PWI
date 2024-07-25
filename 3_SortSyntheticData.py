@@ -2,10 +2,15 @@
 
 import numpy as np
 import pandas as pd
+import sys
+
+sl = sys.argv[1]
+co = sys.argv[2]
+cr = sys.argv[3]
 
 # 1. Upload data
 
-DATA = np.load('data/data_s2_c1_ur.pkl', allow_pickle=True)
+DATA = np.load('data/data_s'+sl+'_c'+co+'_u'+cr+'.pkl', allow_pickle=True)
 
 # 2. Sort data by coil geometry
 
@@ -41,4 +46,4 @@ for p in range(-3,npos):
         print(DATA_sorted.loc[(DATA_sorted.midpx > p+.06) & (DATA_sorted.midpx <p +1.06)])
     print()
 
-np.save('data/data_s2_c1_ur_sort', DATA_sorted_midpoint)
+np.save('data/data_s'+sl+'_c'+co+'_u'+cr+'_sort', DATA_sorted_midpoint)
