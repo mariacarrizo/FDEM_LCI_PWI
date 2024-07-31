@@ -38,12 +38,17 @@ depth_3d = np.hstack(([0], -np.cumsum(thk)))
 
 # mesh
 mesh = emg3d.construct_mesh(frequency = frequency,
-                         properties = sig_3d,
-                         center = [0.25,0.25,0],
+                         properties = [sig[0], sig_3d[0]],
+                         center = [0,0,height],
                          mapping='Conductivity',
-                         domain = ([-10, 48],[-6, 6],[-8,1]), # Check size of the mesh covers the model
-                         min_width_limits = [0.5, 0.5, 0.1],
-                         center_on_edge=True)
+                         domain = ([-10, 50],[-10, 10],[-10,10]),
+                         min_width_limits = [0.2, 0.2, 0.2],
+                         center_on_edge=False,
+                         stretching= {'x': [1,1.5], 'y': [1.1,1.5], 'z': [1.1,1.5]}, 
+                         lambda_from_center=True,
+                         lambda_factor=3, 
+                         cell_numbers=[512, 128, 128]
+                         )
 
 # 3. Populate mesh
 
