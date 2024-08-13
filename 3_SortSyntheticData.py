@@ -28,12 +28,12 @@ n_data_param = 18
 
 # We have 3 additional points to the left of the first midpoint (assuming 
 # 1 position per meter)
-DATA_sorted_midpoint = np.zeros((npos-3, n_data_param))
+DATA_sorted_midpoint = np.zeros((40, n_data_param))
 
 # We will have positions with insufficient data in the edges
 
 pos=0
-for p in range(-3,npos):
+for p in range(-3,39):
     dat = np.hstack((DATA_sorted.loc[(DATA_sorted.midpx > p+.06) & (DATA_sorted.midpx <=p +1.06)]['op'],
                      DATA_sorted.loc[(DATA_sorted.midpx > p+.06) & (DATA_sorted.midpx <=p +1.06)]['ip'])) 
     if dat.size == 0:
