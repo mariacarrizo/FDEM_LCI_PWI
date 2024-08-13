@@ -21,8 +21,6 @@ print('models/model_s'+sl+'_c'+co+'_u'+cr+'.npy')
 print('data/data_s'+sl+'_c'+co+'_u'+cr+'_sort.npy')
 print()
 
-norm = np.array([8, 4, 1, 8, 4, 1, 8, 4, 1, 8, 4, 1, 8, 4, 1, 8, 4, 1])
-
 # Load true models
 
 # model parameters [h_1, sigma_1, sigma_2]
@@ -37,7 +35,7 @@ model_ini[:,2] = model_ini[:,2]*0.5 # initial sigma_2
 # Load true 3D data
 
 # data parameters ['H2', 'H4', 'H8', 'P2', 'P4', 'P8', 'V2', 'V4', 'V8']
-data_true = np.load('data/data_s'+sl+'_c'+co+'_u'+cr+'_sort.npy')[:40] * norm
+data_true = np.load('data/data_s'+sl+'_c'+co+'_u'+cr+'_sort.npy')
 
 # model parameters 
 
