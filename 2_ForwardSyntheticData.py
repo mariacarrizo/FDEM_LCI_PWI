@@ -11,15 +11,19 @@ from joblib import Parallel, delayed
 import sys
 sys.path.insert(1, 'src')
 
+sl = sys.argv[1]
+co = sys.argv[2]
+cr = sys.argv[3]
+
 # 0. Define instrument settings
 
-height = 0.1
+height = 0.15
 frequency = 9000
-n_workers = 10
+n_workers = 30
 
 # 1. Load model
 
-model = np.load('models/model_s4_c4_ur.npy')
+model = np.load('models/model_s'+sl+'_c'+co+'_u'+cr+'.npy')
 npos = np.shape(model)[0]      # number of positions
 nlay = np.shape(model)[1] - 1  # number of layers
 
@@ -29,7 +33,7 @@ depths[:,1] = - model[:,0]
 # 2. Create a mesh
 
 # Define a homogoneous model
-sig = np.array([100/1000])
+sig = np.array([20/1000])
 thk = np.array([])
 
 # Insert air layer
@@ -38,16 +42,18 @@ depth_3d = np.hstack(([0], -np.cumsum(thk)))
 
 # mesh
 mesh = emg3d.construct_mesh(frequency = frequency,
-                         properties = [sig[0], sig_3d[0]],
-                         center = [0,0,height],
+                         properties = [sig[0], sig[0], sig_3d[0]],
+                         center = [20,0,height],
                          mapping='Conductivity',
-                         domain = ([-10, 50],[-10, 10],[-10,10]),
-                         min_width_limits = [0.2, 0.2, 0.2],
+                         domain = ([-20, 60],[-10, 10],[-10,10]),
+                         min_width_limits = [0.2, 0.2, 0.1], # changed z from 0.1 to 0.2
                          center_on_edge=False,
-                         stretching= {'x': [1,1.5], 'y': [1.1,1.5], 'z': [1.1,1.5]}, 
+                         stretching= {'x': [1,1.5], 'y': [1.1,1.5], 'z': [1,1.5]}, 
                          lambda_from_center=True,
                          lambda_factor=3, 
-                         cell_numbers=[512, 128, 128]
+                   #      cell_numbers=[512, 128, 128]
+                   #      max_buffer = 300000,
+                   #      min_width_pps = 5
                          )
 
 # 3. Populate mesh
@@ -222,4 +228,4 @@ print('Done in', (endTime - startTime), 'seconds!')
 OUT_dataframe = pd.concat(OUT)
 
 #np.save('data/data_s1_c1_uc', OUT)
-OUT_dataframe.to_pickle('data/data_s4_c4_ur.pkl')
+OUT_dataframe.to_pickle('data/data_s'+sl+'_c'+co+'_u'+cr+'.pkl')
