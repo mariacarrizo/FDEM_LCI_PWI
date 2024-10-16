@@ -4,7 +4,7 @@ from scipy.constants import mu_0
 import pygimli as pg
 
 # IMPORTANT DEFINE nlay
-nlay = 2
+nlay = 3
 
 def FDEM1D(sgm, thk, height=0.15, norm=np.array([8,4,1])):
     """ 1D FDEM response 

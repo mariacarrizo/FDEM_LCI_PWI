@@ -125,7 +125,7 @@ def showStitchedModels(models, ax=None, x=None, cMin=None, cMax=None, thk=None,
             
         if 'label' in kwargs:
             cb.set_label(kwargs['label'], fontsize=8)
-            cb.ax.tick_params(labelsize=7)
+        cb.ax.tick_params(labelsize=7)
 
     plt.draw()
     return ax  # maybe return cb as well?
