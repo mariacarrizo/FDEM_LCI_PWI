@@ -9,7 +9,7 @@ from scipy.constants import mu_0
 import time
 from joblib import Parallel, delayed
 import sys
-sys.path.insert(1, 'src')
+sys.path.insert(1, '../src')
 
 
 # 0. Define instrument settings
@@ -24,100 +24,14 @@ src_x = np.arange(0,40,1)
 src_y = np.arange(0,40,1)
 src = np.meshgrid(src_x, src_y)
 
-x = src[0].ravel()
-y = src[1].ravel()
+srcx = src[0].ravel()
+srcy = src[1].ravel()
 
-src_list = np.array([x, y]).T
+src_list = np.array([srcx, srcy]).T
 
 # 3. Define a model
 
-# In XY direction
-
-x = np.linspace(0, 60, 60)
-y = np.linspace(0, 60, 60)
-
-xx = np.linspace(-10, 50, 60)
-yy = np.linspace(-10, 50, 60)
-
-# sources positions
-#src_x = np.arange(0,40,1)
-#src_y = src_x.copy()
-
-X, Y = np.meshgrid(x, y) 
-
-def cxy(x,y):
-
-    ci = []
-    
-    xx = np.hstack(x)
-    yy = np.hstack(y)
-
-    for xi,yi in zip(xx,yy):
-
-        if yi > (2*np.sin(xi/6)+xi/4+30):
-            ci.append(1)
-
-        elif yi > (1.5*np.sin(xi/4)+xi/5+25):
-            ci.append(2)
-
-        elif yi > (2*np.sin(xi/5)+xi/4.5+10):
-            ci.append(3)
-
-        elif yi > (1.5*np.sin(xi/6)+xi/6+8):
-            ci.append(4)
-
-        else:
-            ci.append(1)
-                   
-
-    c = np.array(ci).reshape(np.shape(x))
-    return c
-
-
-cxy = cxy(X,Y)
-
-# Create 2 layered models
-
-#cxy = cxy.T
-s_p = 10/1000
-s_g = 100/1000
-s_c = 50/1000
-s_f = 30/1000
-
-slope1 = 1/3
-slope2 = -1/5
-
-b1 = -1.2
-b2 = +8
-
-m = []
-
-for i in range(cxy.shape[0]):
-    for j in range(cxy.shape[1]):
-        if cxy[i,j] == 3: # channel
-            h = 3
-            s1 = s_c
-            s2 = s_g
-            m.append([h, s1, s2])
-        if cxy[i,j] == 1: # plain
-            h = 2
-            s1 = s_p
-            s2 = s_g
-            m.append([h, s1, s2])
-        if cxy[i,j] == 4: # bars
-            h = 2 + Y[i,j]/20 
-            s1 = s_f
-            s2 = s_g
-            m.append([h, s1, s2])
-        if cxy[i,j] == 2: # bars
-            h = 3.5 - Y[i,j]/40
-            s1 = s_f
-            s2 = s_g
-            m.append([h, s1, s2])
-
-m = np.array(m).reshape(len(x),len(y),3)
-
-np.save('models/model_3DChannel_new_full', m)
+m = np.load('models/model_3DChannel_new_full.npy')
 
 # model with air layer
 
@@ -136,6 +50,9 @@ thk = np.array([])
 # Insert air layer
 sig_3d = np.hstack(([1/1e6], sig))
 depth_3d = np.hstack(([0], -np.cumsum(thk)))
+
+xx = np.linspace(-10, 50, 60)
+yy = np.linspace(-10, 50, 60)
 
 
 def ForwardChannel(src_x, src_y):
