@@ -2,7 +2,7 @@ import numpy as np
 import pygimli as pg
 import empymod as ep
 import sys
-sys.path.insert(1, 'src')
+sys.path.insert(1, '../src')
 
 from FDEM1D import FDEM1DModelling
 
@@ -21,7 +21,7 @@ print('models/model_s'+sl+'_c'+co+'_u'+cr+'.npy')
 
 model_true = np.load('models/model_s'+sl+'_c'+co+'_u'+cr+'.npy')
 
-fop_1D = FDEM1DModelling()
+fop_1D = FDEM1DModelling(height=0.15)
 
 npos = len(model_true)
 
