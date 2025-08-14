@@ -1,0 +1,322 @@
+Running: alpha:  -9.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -5.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  0.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  5.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -9.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -2.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  1.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  5.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -6.000000000000001 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -4.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  0.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  5.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -10.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -3.0000000000000004 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  2.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  6.000000000000001 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -8.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -5.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  3.0000000000000004 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  6.000000000000001 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -7.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -5.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  1.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  6.000000000000001 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -8.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -3.0000000000000004 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  0.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  5.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -6.000000000000001 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -3.0000000000000004 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  2.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  7.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -10.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -5.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  0.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  7.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -9.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -1.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  2.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  7.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -8.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -4.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  1.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  6.000000000000001 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -7.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -4.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  3.0000000000000004 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  8.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -6.000000000000001 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -1.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  4.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  8.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -9.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -4.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  1.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  8.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -10.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -2.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  3.0000000000000004 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  7.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -6.000000000000001 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -3.0000000000000004 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  4.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  9.0 sigma1:  20.0 sigma2:  200.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -10.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -1.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  3.0000000000000004 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  9.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -7.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -2.0 sigma1:  20.0 sigma2:  400.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  2.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  8.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -7.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -2.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  4.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  9.0 sigma1:  20.0 sigma2:  800.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+
+Done in 8105.2443742752075 seconds!
+Running: alpha:  -8.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  -1.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  4.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
+Running: alpha:  9.0 sigma1:  20.0 sigma2:  1600.0
+Defining geometry
+source: [11, 0, 0.15, 0, 90]
+
