@@ -6,7 +6,7 @@ import pygimli as pg
 # IMPORTANT DEFINE nlay
 nlay = 2
 
-def FDEM1D(sgm, thk, height=0.15, norm=np.array([8,4,1])):
+def FDEM1D(sgm, thk, height=0.3, ):
     """ 1D FDEM response 
         
     Parameters
@@ -94,6 +94,94 @@ def FDEM1D(sgm, thk, height=0.15, norm=np.array([8,4,1])):
 
     return np.array([HOP, POP, VOP, HIP, PIP, VIP]).ravel() 
 
+def FDEM1D_topo(sgm, thk, height=0.3, ):
+    """ 1D FDEM response 
+        
+    Parameters
+    ----------
+    sgm : array
+           Array of electrical conductivities [S/m], len(sigma) = nlay
+
+    thk : array
+           Array of thicknesses [m], len(thk) = nlay - 1
+
+    Freq : frequency of device [Hz]
+
+    coilOrient : array of strings
+                  coil orientations: 'H' for horizontal coplanar, 
+                  'V' for vertical coplanar, 'P' for perpendicular
+
+    coilSpacing : array
+                    separations of the transmitter and receiver coils [m]
+
+    height : float
+                height of the device with respect to ground [m]
+                
+    norm : normalize values with respect to offset
+
+    Returns
+    -------
+    Array [OP, IP]
+
+    """  
+    # Set geometry
+    Freq = 9000
+    coilSpacing = [2, 4, 8]
+    pcoilSpacing = [2.1, 4.1, 8.1]
+    coilOrient = np.array(['H', 'P'])
+    #height = 0
+
+    # Source and receivers geometry [x, y, z]
+    source    = [0, 0, -height]
+    receivers = [coilSpacing, np.zeros(len(coilSpacing)), -height]    
+    preceivers = [pcoilSpacing, np.zeros(len(pcoilSpacing)), -height]
+
+    # Depth and resistivity
+    res_air = 1e6
+    res = np.hstack((res_air, 1/sgm))
+    depth = np.hstack((0, np.cumsum(thk)))
+    # Empty array to store responses
+    HOP = []
+    HIP = []
+    POP = []
+    PIP = []
+    VOP = []
+    VIP = []
+    
+    if any(coilOrient == 'H'):
+
+        H_Hs = ep.dipole(source, receivers, depth, res, Freq, ab = 66, xdirect=None, 
+                          verb=0)*(2j * np.pi * Freq * mu_0) 
+        H_Hp = ep.dipole(source, receivers, depth=[], res=[res_air], freqtime = Freq,
+                         ab = 66, verb=0)*(2j * np.pi * Freq * mu_0)   
+        op = (H_Hs/H_Hp).imag.amp()# * norm
+        ip = (H_Hs/H_Hp).real.amp()# * norm
+        HOP.append(op) 
+        HIP.append(ip)
+
+    if any(coilOrient == 'P'):
+        # Maybe put 0.1m in receiver offset
+        P_Hs = ep.dipole(source, preceivers, depth, res, Freq, ab=46, xdirect=None, 
+                         verb=0)*(2j * np.pi * Freq * mu_0) 
+        P_Hp = ep.dipole(source, preceivers, depth=[], res=[res_air], freqtime= Freq,
+                         ab=66, verb=0)*(2j * np.pi * Freq * mu_0) 
+        op = (P_Hs/P_Hp).imag.amp()# * norm
+        ip = (P_Hs/P_Hp).real.amp()# * norm
+        POP.append(op)
+        PIP.append(ip)
+        
+    if any(coilOrient == 'V'):
+        V_Hs = ep.dipole(source, receivers, depth, res, Freq, ab =55, xdirect=None, 
+                         verb=0)*(2j * np.pi * Freq * mu_0) 
+        V_Hp = ep.dipole(source, receivers, depth=[], res=[res_air], freqtime=Freq, 
+                         ab=55, verb=0)*(2j * np.pi * Freq * mu_0)
+        op = (V_Hs/V_Hp).imag.amp()# * norm
+        ip = (V_Hs/V_Hp).real.amp()# * norm
+        VOP.append(op)
+        VIP.append(ip)
+
+    return np.array([HOP, POP, HIP, PIP, ]).ravel() 
+
 def FDEM1D_field(sgm, thk, height=0.47,):
     """ 1D FDEM response 
         
@@ -128,7 +216,7 @@ def FDEM1D_field(sgm, thk, height=0.47,):
     Freq = 9000
     coilSpacing = [2, 4, 8]
     pcoilSpacing = [2.1, 4.1, 8.1]
-    coilOrient = np.array(['H', 'V',])
+    coilOrient = np.array(['H', 'V','P'])
     #height = 0
 
     # Source and receivers geometry [x, y, z]
@@ -180,9 +268,9 @@ def FDEM1D_field(sgm, thk, height=0.47,):
         VOP.append(op)
         VIP.append(ip)
 
-    return np.hstack((HOP, VOP, HIP, VIP))[0]
+    return np.hstack((HOP, VOP, POP, HIP, VIP)).ravel()
 
-def FDEM1D_mdp(sgm, thk, height=0.15, ):
+def FDEM1D_mdp(sgm, thk, height=0.3, ):
     """ 1D FDEM response 
         
     Parameters
@@ -214,14 +302,16 @@ def FDEM1D_mdp(sgm, thk, height=0.15, ):
     """  
     # Set geometry
     Freq = 9000
-    coilSpacing = np.array([2, 4, 8])
-    pcoilSpacing = np.array([2.1, 4.1,8.1])
+   # coilSpacing = np.array([2, 4, 8])
+   # pcoilSpacing = np.array([2.1, 4.1,8.1])
     coilOrient = np.array(['H', 'V', 'P'])
-    xsrc = np.array([-1, -2, -4])
-    xrec = np.array([1, 2, 4])
-    xsrc_p = np.array([-1.05, -2.05, -4.05])
-    xrec_p = np.array([1.05, 2.05, 4.05])
+    xsrc = np.array([3, 2, 0])
+    xrec = np.array([5, 6, 8])
+    xsrc_p = np.array([3, 2, 0])
+    xrec_p = np.array([5.1, 6.1, 8.1])
 
+ #   norm = np.array([4, 2, 1, 4, 2, 1, 4, 2, 1, 8, 4, 1, 8, 4, 1, 8, 4, 1])
+    
     # Empty array to store responses
     HOP = []
     HIP = []
@@ -249,8 +339,8 @@ def FDEM1D_mdp(sgm, thk, height=0.15, ):
                               verb=0)*(2j * np.pi * Freq * mu_0) 
             H_Hp = ep.dipole(source, receivers, depth=[], res=[res_air], freqtime = Freq,
                              ab = 66, verb=0)*(2j * np.pi * Freq * mu_0)   
-            op = (H_Hs/H_Hp).imag.amp()# * norm
-            ip = (H_Hs/H_Hp).real.amp()# * norm
+            op = (H_Hs/H_Hp).imag.amp() 
+            ip = (H_Hs/H_Hp).real.amp() 
             #print('xsrc: ', x_src, 'H', ' op')
             HOP.append(op) 
             #print('xsrc: ', x_src, 'H', ' ip')
@@ -261,8 +351,8 @@ def FDEM1D_mdp(sgm, thk, height=0.15, ):
                              verb=0)*(2j * np.pi * Freq * mu_0) 
             V_Hp = ep.dipole(source, receivers, depth=[], res=[res_air], freqtime=Freq, 
                              ab=55, verb=0)*(2j * np.pi * Freq * mu_0)
-            op = (V_Hs/V_Hp).imag.amp()# * norm
-            ip = (V_Hs/V_Hp).real.amp()# * norm
+            op = (V_Hs/V_Hp).imag.amp() 
+            ip = (V_Hs/V_Hp).real.amp() 
             #print('xsrc: ', x_src, 'V', ' op')
             VOP.append(op)
             #print('xsrc: ', x_src, 'V', ' ip')
@@ -274,19 +364,20 @@ def FDEM1D_mdp(sgm, thk, height=0.15, ):
                              verb=0)*(2j * np.pi * Freq * mu_0) 
             P_Hp = ep.dipole(psource, preceivers, depth=[], res=[res_air], freqtime= Freq,
                              ab=66, verb=0)*(2j * np.pi * Freq * mu_0) 
-            op = (P_Hs/P_Hp).imag.amp()# * norm
-            ip = (P_Hs/P_Hp).real.amp()# * norm
+            op = (P_Hs/P_Hp).imag.amp() 
+            ip = (P_Hs/P_Hp).real.amp() 
             #print('xsrc: ', x_src_p, 'P', ' op')
             POP.append(op)
             #print('xsrc: ', x_src_p, 'P', ' ip')
             PIP.append(ip)
             
-    return np.array([HOP, POP, VOP, HIP, PIP, VIP]).ravel() 
+    return np.array([HOP, POP, VOP, HIP, PIP, VIP]).ravel() # * norm
      
 class FDEM1DModelling(pg.frameworks.Modelling):
     
-    def __init__(self, nlay=nlay):
+    def __init__(self, nlay=nlay, height=0.15):
         self.nlay = nlay
+        self.height = height
         mesh = pg.meshtools.createMesh1DBlock(nlay)
         super().__init__()
         self.setMesh(mesh)
@@ -297,8 +388,8 @@ class FDEM1DModelling(pg.frameworks.Modelling):
         par = [thickness_1, thickness_2, ..., thickness_n, sigma_1, sigma_2, ..., sigma_n]
         """
         resp = FDEM1D_mdp(np.asarray(par)[self.nlay-1:self.nlay*2-1],   # sigma
-                      np.asarray(par)[:self.nlay-1]                  # thickness
-                      )
+                      np.asarray(par)[:self.nlay-1],                  # thickness
+                      height=self.height)
         return resp
     
     def response_mt(self, par, i=0):
@@ -381,6 +472,55 @@ class FDEM1DModelling_field(pg.frameworks.Modelling):
         
 class FDEM1DModelling_nosort(pg.frameworks.Modelling):
     
+    def __init__(self, nlay=nlay, height = 0.15):
+        self.nlay = nlay
+        self.height = height
+        mesh = pg.meshtools.createMesh1DBlock(nlay)
+        super().__init__()
+        self.setMesh(mesh)
+        #print('im using this one')
+                   
+    def response(self, par):
+        """ Compute response vector for a certain model [mod] 
+        par = [thickness_1, thickness_2, ..., thickness_n, sigma_1, sigma_2, ..., sigma_n]
+        """
+        resp = FDEM1D(np.asarray(par)[self.nlay-1:self.nlay*2-1],   # sigma
+                      np.asarray(par)[:self.nlay-1],                  # thickness
+                      height = self.height)
+        return resp
+    
+    def response_mt(self, par, i=0):
+        """Multi-threaded forward response."""
+        return self.response(par)
+    
+    def createJacobian(self, par, dx=1e-4):
+        """ compute Jacobian for a 1D model """
+        resp = self.response(par)
+        n_rows = len(resp) # number of data values in data vector
+        n_cols = len(par) # number of model parameters
+        J = self.jacobian() # we define first this as the jacobian
+        J.resize(n_rows, n_cols)
+        Jt = np.zeros((n_cols, n_rows))
+        for j in range(n_cols):
+            mod_plus_dx = par.copy()
+            mod_plus_dx[j] += dx
+            Jt[j,:] = (self.response(mod_plus_dx) - resp)/dx # J.T in col j
+        for i in range(n_rows):
+            J[i] = Jt[:,i]
+        #print(self.jacobian())
+        #print(J)
+        #print(Jt)
+        
+    def drawModel(self, ax, model):
+        pg.viewer.mpl.drawModel1D(ax = ax,
+                                  model = model,
+                                  plot = 'semilogx',
+                                  xlabel = 'Electrical conductivity (S/m)',
+                                  )
+        ax.set_ylabel('Depth in (m)')
+
+class FDEM1DModelling_topo(pg.frameworks.Modelling):
+    
     def __init__(self, nlay=nlay):
         self.nlay = nlay
         mesh = pg.meshtools.createMesh1DBlock(nlay)
@@ -392,7 +532,7 @@ class FDEM1DModelling_nosort(pg.frameworks.Modelling):
         """ Compute response vector for a certain model [mod] 
         par = [thickness_1, thickness_2, ..., thickness_n, sigma_1, sigma_2, ..., sigma_n]
         """
-        resp = FDEM1D(np.asarray(par)[self.nlay-1:self.nlay*2-1],   # sigma
+        resp = FDEM1D_topo(np.asarray(par)[self.nlay-1:self.nlay*2-1],   # sigma
                       np.asarray(par)[:self.nlay-1]                  # thickness
                       )
         return resp
