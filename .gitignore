@@ -161,5 +161,14 @@ cython_debug/
 #
 2Layers/data/*
 2Layers/results/*
+2Layers/models/*.npy
 3DForwardScripts
-2Layers/figures/*
+2Layers/figures/*.eps
+3Layers
+Tilt/*.eps
+Tilt/*.svg
+Topography/*.eps
+Topography/*.npy
+Sinusoidal/*.eps
+Sinusoidal/figures/*.eps
+Sinusoidal/*.npy
