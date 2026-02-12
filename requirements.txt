@@ -1,5 +1,6 @@
 numpy
 empymod
+emg3d
 scipy
 joblib
 pandas
