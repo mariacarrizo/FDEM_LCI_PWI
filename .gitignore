@@ -173,3 +173,5 @@ Topography/*.npy
 Sinusoidal/*.eps
 Sinusoidal/figures/*.eps
 Sinusoidal/*.npy
+Channel/figures/*
+
