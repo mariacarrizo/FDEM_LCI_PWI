@@ -161,7 +161,8 @@ cython_debug/
 #
 2Layers/data/*
 2Layers/results/*
-2Layers/models/*.npy
+2Layers/models/*
+2Layers/results/*
 3DForwardScripts
 2Layers/figures/*.eps
 3Layers
