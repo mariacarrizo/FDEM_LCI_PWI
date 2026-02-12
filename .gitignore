@@ -161,3 +161,5 @@ cython_debug/
 #
 2Layers/data/*
 2Layers/results/*
+3DForwardScripts
+2Layers/figures/*
