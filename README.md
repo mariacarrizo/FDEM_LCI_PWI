@@ -1,4 +1,4 @@
-![Zenodo doi badge](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.1234567-blue.svg)
+![Zenodo doi badge](https://img.shields.io/badge/[DOI-10.5281%2Fzenodo.20282212-blue.svg)
 
 # FDEM_LCI_PWI
 Repository for publication: [Impact of non-1D Earth on FDEM measurements and the performance of PWI and LCI Inversions](<https://doi.org/10.1016/j.jappgeo.2026.106130>)
